@@ -103,6 +103,15 @@ func (rc *Cache) IsExist(key string) bool {
 	return v
 }
 
+// IsExistErr check cache's existence in redis.
+func (rc *Cache) IsExistErr(key string) (bool, error) {
+	v, err := redis.Bool(rc.do("EXISTS", key))
+	if err != nil {
+		return false, err
+	}
+	return v, nil
+}
+
 // Incr increase counter in redis.
 func (rc *Cache) Incr(key string) error {
 	_, err := redis.Bool(rc.do("INCRBY", key, 1))

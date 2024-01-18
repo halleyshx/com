@@ -59,6 +59,12 @@ func (rc *Cache) IsExist(key string) bool {
 	return found
 }
 
+// IsExistErr check cache's existence in go-cache.
+func (rc *Cache) IsExistErr(key string) (bool, error) {
+	_, found := rc.p.Get(key)
+	return found, nil
+}
+
 // Incr increase counter in go-cache.
 func (rc *Cache) Incr(key string) error {
 	return rc.p.Increment(key, 1)
