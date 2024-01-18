@@ -66,6 +66,8 @@ type Cache interface {
 
 	// check if cached value exists or not.
 	IsExist(key string) bool
+	// check if cached value exists or not with err.
+	IsExistErr(key string) (bool, error)
 	// clear all cache.
 	ClearAll() error
 	// start gc routine based on config settings.

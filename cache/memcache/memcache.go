@@ -140,6 +140,17 @@ func (rc *Cache) IsExist(key string) bool {
 	return !(err != nil)
 }
 
+// IsExistErr check value exists in memcache.
+func (rc *Cache) IsExistErr(key string) (bool, error) {
+	if rc.conn == nil {
+		if err := rc.connectInit(); err != nil {
+			return false, err
+		}
+	}
+	_, err := rc.conn.Get(key)
+	return !(err != nil), err
+}
+
 // ClearAll clear all cached in memcache.
 func (rc *Cache) ClearAll() error {
 	if rc.conn == nil {
